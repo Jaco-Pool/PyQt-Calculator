@@ -78,7 +78,7 @@ class PyCalcWindow(QMainWindow):  # creates the PyCalcWindow class to provide th
 def evaluateExpression(expression):
     """Evaluate an expression (Model)."""
     try:
-        result = str(eval(expression, {}, {}))
+        result = str(eval(expression, {}, {})) # Using eval can be dangerous!  
     except Exception:
         result = ERROR_MSG
     return result
@@ -86,26 +86,26 @@ def evaluateExpression(expression):
 class PyCalc:
     """PyCalc's controller class."""
 
-    def __init__(self, model, view):
+    def __init__(self, model, view):  # define class intializer
         self._evaluate = model
         self._view = view
         self._connectSignalsAndSlots()
 
-    def _calculateResult(self):
-        result = self._evaluate(expression=self._view.displayText())
-        self._view.setDisplayText(result)
+    def _calculateResult(self):  
+        result = self._evaluate(expression=self._view.displayText())  # evaluate the math expression that the user has just typed in
+        self._view.setDisplayText(result) # update the display text with the computation result
 
     def _buildExpression(self, subExpression):
         if self._view.displayText() == ERROR_MSG:
             self._view.clearDisplay()
-        expression = self._view.displayText() + subExpression
+        expression = self._view.displayText() + subExpression  # concatenates the initial display value with every new value that the user enters
         self._view.setDisplayText(expression)
 
-    def _connectSignalsAndSlots(self):
+    def _connectSignalsAndSlots(self):  # connects all the buttons .clicked signals with the appropriate slots method
         for keySymbol, button in self._view.buttonMap.items():
             if keySymbol not in {"=", "C"}:
                 button.clicked.connect(
-                    partial(self._buildExpression, keySymbol)
+                    partial(self._buildExpression, keySymbol)  
                 )
         self._view.buttonMap["="].clicked.connect(self._calculateResult)
         self._view.display.returnPressed.connect(self._calculateResult)
