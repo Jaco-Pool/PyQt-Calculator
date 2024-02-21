@@ -2,7 +2,7 @@
 
 """PyCalc is a simple calculator built with Python and PyQt."""
 
-import sys  # imports sys. This module provides the exit() function, which we use to terminate.
+import sys  # This module provides the exit() function, which we use to terminate.
 from functools import partial
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
@@ -15,25 +15,24 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget  #  imports the required classes from PyQt6.QtWidgets.
-
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget  
 ERROR_MSG = "ERROR"
 WINDOW_SIZE = 235  # creates a Python constant to hold a fixed window size in pixels for our calculator app.
 DISPLAY_HEIGHT = 35
 BUTTON_SIZE = 40
 
 
-class PyCalcWindow(QMainWindow):  # creates the PyCalcWindow class to provide the app’s GUI. This class inherits from QMainWindow.
+class PyCalcWindow(QMainWindow): 
     """PyCalc's main window (GUI or view)."""
 
-    def __init__(self):  # defines the class initializer.
-        super().__init__()   # calls .__init__() on the super class for initialization purposes.
-        self.setWindowTitle("PyCalc")  # sets the window’s title to "PyCalc".
-        self.setFixedSize(WINDOW_SIZE, WINDOW_SIZE)  # uses .setFixedSize() to give the window a fixed size.
+    def __init__(self): 
+        super().__init__()  
+        self.setWindowTitle("PyCalc")  .
+        self.setFixedSize(WINDOW_SIZE, WINDOW_SIZE)  
         self.generalLayout = QVBoxLayout()
         centralWidget = QWidget(self) 
         centralWidget.setLayout(self.generalLayout)        
-        self.setCentralWidget(centralWidget)  ## create a QWidget object and set it as the window’s central widget. 
+        self.setCentralWidget(centralWidget)  
         self._createDisplay()
         self._createButtons()
 
@@ -78,7 +77,7 @@ class PyCalcWindow(QMainWindow):  # creates the PyCalcWindow class to provide th
 def evaluateExpression(expression):
     """Evaluate an expression (Model)."""
     try:
-        result = str(eval(expression, {}, {})) # Using eval can be dangerous!  
+        result = str(eval(expression, {}, {})) 
     except Exception:
         result = ERROR_MSG
     return result
@@ -86,7 +85,7 @@ def evaluateExpression(expression):
 class PyCalc:
     """PyCalc's controller class."""
 
-    def __init__(self, model, view):  # define class intializer
+    def __init__(self, model, view):  
         self._evaluate = model
         self._view = view
         self._connectSignalsAndSlots()
@@ -120,4 +119,4 @@ def main():
     sys.exit(pycalcApp.exec())  # runs the application’s event loop with .exec().
 
 if __name__ == "__main__":
-    main()  # calls main() to execute.
+    main()  
